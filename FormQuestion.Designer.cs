@@ -36,20 +36,32 @@
             lbType = new Label();
             rbOuverte = new RadioButton();
             panel1 = new Panel();
-            panel2 = new Panel();
-            rbFerme = new RadioButton();
             rbListe = new RadioButton();
-            panel3 = new Panel();
-            rbOui = new RadioButton();
+            rbFerme = new RadioButton();
+            panel2 = new Panel();
+            panelOuiNon = new Panel();
             rbNon = new RadioButton();
+            rbOui = new RadioButton();
+            dgvListe = new DataGridView();
+            label1 = new Label();
+            lbQuestionnaire = new Label();
+            btPlusListe = new Button();
+            btMoinsListe = new Button();
+            panelListe = new Panel();
+            lbNum = new Label();
+            numquestion = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
-            panel3.SuspendLayout();
+            panelOuiNon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvListe).BeginInit();
+            panelListe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numquestion).BeginInit();
             SuspendLayout();
             // 
             // tbLibelle
             // 
-            tbLibelle.Location = new Point(504, 94);
+            tbLibelle.Font = new Font("Segoe UI", 10F);
+            tbLibelle.Location = new Point(495, 79);
             tbLibelle.Name = "tbLibelle";
             tbLibelle.Size = new Size(249, 36);
             tbLibelle.TabIndex = 21;
@@ -59,7 +71,7 @@
             // 
             lbLibelle.AutoSize = true;
             lbLibelle.Font = new Font("Segoe UI", 15F);
-            lbLibelle.Location = new Point(430, 102);
+            lbLibelle.Location = new Point(430, 79);
             lbLibelle.Name = "lbLibelle";
             lbLibelle.Size = new Size(68, 28);
             lbLibelle.TabIndex = 17;
@@ -75,6 +87,7 @@
             btPlus.Text = "+";
             btPlus.TextAlign = ContentAlignment.TopRight;
             btPlus.UseVisualStyleBackColor = true;
+            btPlus.Click += btPlus_Click;
             // 
             // btMoins
             // 
@@ -86,6 +99,7 @@
             btMoins.Text = "−";
             btMoins.TextAlign = ContentAlignment.TopRight;
             btMoins.UseVisualStyleBackColor = true;
+            btMoins.Click += btMoins_Click;
             // 
             // dataGridView1
             // 
@@ -94,8 +108,10 @@
             dataGridView1.Location = new Point(12, 13);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(405, 426);
             dataGridView1.TabIndex = 13;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             // 
             // lbType
             // 
@@ -130,69 +146,153 @@
             panel1.Size = new Size(277, 272);
             panel1.TabIndex = 24;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Gray;
-            panel2.Location = new Point(809, 13);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(2, 426);
-            panel2.TabIndex = 25;
-            // 
-            // rbFerme
-            // 
-            rbFerme.AutoSize = true;
-            rbFerme.Font = new Font("Segoe UI", 20F);
-            rbFerme.Location = new Point(3, 125);
-            rbFerme.Name = "rbFerme";
-            rbFerme.Size = new Size(146, 41);
-            rbFerme.TabIndex = 24;
-            rbFerme.TabStop = true;
-            rbFerme.Text = "Oui/ Non";
-            rbFerme.UseVisualStyleBackColor = true;
-            // 
             // rbListe
             // 
             rbListe.AutoSize = true;
             rbListe.Font = new Font("Segoe UI", 20F);
-            rbListe.Location = new Point(0, 228);
+            rbListe.Location = new Point(3, 168);
             rbListe.Name = "rbListe";
             rbListe.Size = new Size(216, 41);
             rbListe.TabIndex = 25;
             rbListe.TabStop = true;
             rbListe.Text = "Liste de valeurs";
             rbListe.UseVisualStyleBackColor = true;
+            rbListe.CheckedChanged += rbListe_CheckedChanged;
             // 
-            // panel3
+            // rbFerme
             // 
-            panel3.Controls.Add(rbNon);
-            panel3.Controls.Add(rbOui);
-            panel3.Font = new Font("Segoe UI", 15F);
-            panel3.Location = new Point(840, 167);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(277, 272);
-            panel3.TabIndex = 26;
+            rbFerme.AutoSize = true;
+            rbFerme.Font = new Font("Segoe UI", 20F);
+            rbFerme.Location = new Point(3, 82);
+            rbFerme.Name = "rbFerme";
+            rbFerme.Size = new Size(146, 41);
+            rbFerme.TabIndex = 24;
+            rbFerme.TabStop = true;
+            rbFerme.Text = "Oui/ Non";
+            rbFerme.UseVisualStyleBackColor = true;
+            rbFerme.CheckedChanged += rbFerme_CheckedChanged;
             // 
-            // rbOui
+            // panel2
             // 
-            rbOui.AutoSize = true;
-            rbOui.Location = new Point(38, 132);
-            rbOui.Name = "rbOui";
-            rbOui.Size = new Size(61, 32);
-            rbOui.TabIndex = 0;
-            rbOui.TabStop = true;
-            rbOui.Text = "Oui";
-            rbOui.UseVisualStyleBackColor = true;
+            panel2.BackColor = Color.Gray;
+            panel2.Location = new Point(801, 79);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(2, 361);
+            panel2.TabIndex = 25;
+            // 
+            // panelOuiNon
+            // 
+            panelOuiNon.Controls.Add(rbNon);
+            panelOuiNon.Controls.Add(rbOui);
+            panelOuiNon.Font = new Font("Segoe UI", 15F);
+            panelOuiNon.Location = new Point(840, 251);
+            panelOuiNon.Name = "panelOuiNon";
+            panelOuiNon.Size = new Size(277, 41);
+            panelOuiNon.TabIndex = 26;
+            panelOuiNon.Visible = false;
             // 
             // rbNon
             // 
             rbNon.AutoSize = true;
-            rbNon.Location = new Point(163, 132);
+            rbNon.Location = new Point(156, 7);
             rbNon.Name = "rbNon";
-            rbNon.Size = new Size(68, 32);
+            rbNon.Size = new Size(75, 32);
             rbNon.TabIndex = 1;
             rbNon.TabStop = true;
-            rbNon.Text = "Non";
+            rbNon.Text = "NON";
             rbNon.UseVisualStyleBackColor = true;
+            // 
+            // rbOui
+            // 
+            rbOui.AutoSize = true;
+            rbOui.Location = new Point(49, 7);
+            rbOui.Name = "rbOui";
+            rbOui.Size = new Size(64, 32);
+            rbOui.TabIndex = 0;
+            rbOui.TabStop = true;
+            rbOui.Text = "OUI";
+            rbOui.UseVisualStyleBackColor = true;
+            // 
+            // dgvListe
+            // 
+            dgvListe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvListe.Location = new Point(3, 37);
+            dgvListe.Name = "dgvListe";
+            dgvListe.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListe.Size = new Size(271, 102);
+            dgvListe.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F);
+            label1.Location = new Point(840, 167);
+            label1.Name = "label1";
+            label1.Size = new Size(86, 28);
+            label1.TabIndex = 27;
+            label1.Text = "Réponse";
+            // 
+            // lbQuestionnaire
+            // 
+            lbQuestionnaire.AutoSize = true;
+            lbQuestionnaire.Location = new Point(595, 35);
+            lbQuestionnaire.Name = "lbQuestionnaire";
+            lbQuestionnaire.Size = new Size(81, 15);
+            lbQuestionnaire.TabIndex = 28;
+            lbQuestionnaire.Text = "Questionnaire";
+            // 
+            // btPlusListe
+            // 
+            btPlusListe.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btPlusListe.Location = new Point(196, 3);
+            btPlusListe.Name = "btPlusListe";
+            btPlusListe.Size = new Size(35, 41);
+            btPlusListe.TabIndex = 16;
+            btPlusListe.Text = "+";
+            btPlusListe.TextAlign = ContentAlignment.TopRight;
+            btPlusListe.UseVisualStyleBackColor = true;
+            btPlusListe.Click += btPlusListe_Click;
+            // 
+            // btMoinsListe
+            // 
+            btMoinsListe.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btMoinsListe.Location = new Point(237, 3);
+            btMoinsListe.Name = "btMoinsListe";
+            btMoinsListe.Size = new Size(37, 41);
+            btMoinsListe.TabIndex = 29;
+            btMoinsListe.Text = "−";
+            btMoinsListe.TextAlign = ContentAlignment.TopRight;
+            btMoinsListe.UseVisualStyleBackColor = true;
+            btMoinsListe.Click += btMoinsListe_Click;
+            // 
+            // panelListe
+            // 
+            panelListe.Controls.Add(dgvListe);
+            panelListe.Controls.Add(btMoinsListe);
+            panelListe.Controls.Add(btPlusListe);
+            panelListe.Location = new Point(840, 298);
+            panelListe.Name = "panelListe";
+            panelListe.Size = new Size(277, 142);
+            panelListe.TabIndex = 30;
+            panelListe.Visible = false;
+            // 
+            // lbNum
+            // 
+            lbNum.AutoSize = true;
+            lbNum.Font = new Font("Segoe UI", 15F);
+            lbNum.Location = new Point(430, 127);
+            lbNum.Name = "lbNum";
+            lbNum.Size = new Size(55, 28);
+            lbNum.TabIndex = 31;
+            lbNum.Text = "Num";
+            // 
+            // numquestion
+            // 
+            numquestion.Font = new Font("Segoe UI", 20F);
+            numquestion.Location = new Point(495, 121);
+            numquestion.Name = "numquestion";
+            numquestion.Size = new Size(120, 43);
+            numquestion.TabIndex = 32;
             // 
             // FormQuestion
             // 
@@ -200,7 +300,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(1148, 452);
-            Controls.Add(panel3);
+            Controls.Add(numquestion);
+            Controls.Add(lbNum);
+            Controls.Add(panelListe);
+            Controls.Add(lbQuestionnaire);
+            Controls.Add(label1);
+            Controls.Add(panelOuiNon);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(lbType);
@@ -215,8 +320,11 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            panelOuiNon.ResumeLayout(false);
+            panelOuiNon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvListe).EndInit();
+            panelListe.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numquestion).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -234,8 +342,16 @@
         private Panel panel2;
         private RadioButton rbListe;
         private RadioButton rbFerme;
-        private Panel panel3;
+        private Panel panelOuiNon;
         private RadioButton rbNon;
         private RadioButton rbOui;
+        private Label label1;
+        private Label lbQuestionnaire;
+        private DataGridView dgvListe;
+        private Button btPlusListe;
+        private Button btMoinsListe;
+        private Panel panelListe;
+        private Label lbNum;
+        private NumericUpDown numquestion;
     }
 }
